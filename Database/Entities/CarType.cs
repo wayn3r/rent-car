@@ -12,8 +12,11 @@ namespace RentCar.Database.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
+        [Display(Name = "Descripcion")]
+
         public string description { get; set; }
 
+        [Display(Name = "Estado")]
         public Status status { get; set; }
 
 

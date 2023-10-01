@@ -9,13 +9,21 @@ namespace RentCar.Database.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
+
+        [Required]
+        [Display(Name = "Descripcion")]
         public string description { get; set; }
 
+        [Required]
+        [Display(Name = "Estado")]
         public Status status { get; set; }
 
+        [Required]
+        [Display(Name = "Marca")]
         public int brandId { get; set; }
 
         [ForeignKey("brandId")]
-        public virtual Brand brand { get; set; }
+        [Display(Name = "Marca")]
+        public virtual Brand? brand { get; set; }
     }
 }
