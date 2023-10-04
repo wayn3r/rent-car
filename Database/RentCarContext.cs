@@ -20,5 +20,7 @@ namespace RentCar.Database
             modelBuilder.Entity<CarType>().ToTable(nameof(CarType));
         }
 
+        public DbSet<RentCar.Database.Entities.Cars>? Cars { get; set; }
+
     }
 }
