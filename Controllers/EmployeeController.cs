@@ -19,15 +19,15 @@ namespace RentCar.Controllers
             _context = context;
         }
 
-        // GET: Clients
+        // GET: Employee
         public async Task<IActionResult> Index()
         {
               return _context.Employee != null ? 
                           View(await _context.Employee.ToListAsync()) :
-                          Problem("Entity set 'RentCarContext.Clients'  is null.");
+                          Problem("Entity set 'RentCarContext.Employee'  is null.");
         }
 
-        // GET: Clients/Details/5
+        // GET: Employee/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Employee == null)
@@ -45,13 +45,13 @@ namespace RentCar.Controllers
             return View(Employee);
         }
 
-        // GET: Clients/Create
+        // GET: Employee/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Clients/Create
+        // POST: Employee/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -67,7 +67,7 @@ namespace RentCar.Controllers
             return View(Employee);
         }
 
-        // GET: Clients/Edit/5
+        // GET: Employee/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Employee == null)
@@ -83,7 +83,7 @@ namespace RentCar.Controllers
             return View(Employee);
         }
 
-        // POST: Clients/Edit/5
+        // POST: Employee/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -118,7 +118,7 @@ namespace RentCar.Controllers
             return View(Employee);
         }
 
-        // GET: Clients/Delete/5
+        // GET: Employee/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Employee == null)
@@ -136,19 +136,19 @@ namespace RentCar.Controllers
             return View(Employee);
         }
 
-        // POST: Clients/Delete/5
+        // POST: Employee/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Clients == null)
+            if (_context.Employee == null)
             {
-                return Problem("Entity set 'RentCarContext.Clients'  is null.");
+                return Problem("Entity set 'RentCarContext.Employee'  is null.");
             }
             var Employee = await _context.Employee.FindAsync(id);
-            if (clients != null)
+            if (Employee != null)
             {
-                _context.Employee.Remove(clients);
+                _context.Employee.Remove(Employee);
             }
             
             await _context.SaveChangesAsync();
