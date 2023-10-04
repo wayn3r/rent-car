@@ -22,5 +22,7 @@ namespace RentCar.Database
 
         public DbSet<RentCar.Database.Entities.Cars>? Cars { get; set; }
 
+        public DbSet<RentCar.Database.Entities.Clients>? Clients { get; set; }
+
     }
 }
