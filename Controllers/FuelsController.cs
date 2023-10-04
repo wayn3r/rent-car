@@ -10,87 +10,87 @@ using RentCar.Database.Entities;
 
 namespace RentCar.Controllers
 {
-    public class EmployeeController : Controller
+    public class FuelsController : Controller
     {
         private readonly RentCarContext _context;
 
-        public EmployeeController(RentCarContext context)
+        public FuelsController(RentCarContext context)
         {
             _context = context;
         }
 
-        // GET: Employee
+        // GET: Fuel
         public async Task<IActionResult> Index()
         {
-              return _context.Employee != null ? 
-                          View(await _context.Employee.ToListAsync()) :
-                          Problem("Entity set 'RentCarContext.Employee'  is null.");
+              return _context.Fuels != null ? 
+                          View(await _context.Fuels.ToListAsync()) :
+                          Problem("Entity set 'RentCarContext.Fuel'  is null.");
         }
 
-        // GET: Employee/Details/5
+        // GET: Fuel/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Employee == null)
+            if (id == null || _context.Fuels == null)
             {
                 return NotFound();
             }
 
-            var Employee = await _context.Employee
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (Employee == null)
+            var brand = await _context.Fuels
+                .FirstOrDefaultAsync(m => m.id == id);
+            if (brand == null)
             {
                 return NotFound();
             }
 
-            return View(Employee);
+            return View(brand);
         }
 
-        // GET: Employee/Create
+        // GET: Fuel/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Employee/Create
+        // POST: Fuel/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Cedula,tandalabor,porcientocomision,Fechaingreso,Estado")] Employee Employee)
+        public async Task<IActionResult> Create([Bind("id,description,status")] Brand brand)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(Employee);
+                _context.Add(brand);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(Employee);
+            return View(brand);
         }
 
-        // GET: Employee/Edit/5
+        // GET: Fuel/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Employee == null)
+            if (id == null || _context.Fuels == null)
             {
                 return NotFound();
             }
 
-            var Employee = await _context.Employee.FindAsync(id);
-            if (Employee == null)
+            var brand = await _context.Fuels.FindAsync(id);
+            if (brand == null)
             {
                 return NotFound();
             }
-            return View(Employee);
+            return View(brand);
         }
 
-        // POST: Employee/Edit/5
+        // POST: Fuel/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Cedula,tandalabor,porcientocomision,Fechaingreso,Estado")] Employee Employee)
+        public async Task<IActionResult> Edit(int id, [Bind("id,description,status")] Brand brand)
         {
-            if (id != Employee.Id)
+            if (id != brand.id)
             {
                 return NotFound();
             }
@@ -99,12 +99,12 @@ namespace RentCar.Controllers
             {
                 try
                 {
-                    _context.Update(Employee);
+                    _context.Update(brand);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(Employee.Id))
+                    if (!BrandExists(brand.id))
                     {
                         return NotFound();
                     }
@@ -115,49 +115,49 @@ namespace RentCar.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(Employee);
+            return View(brand);
         }
 
-        // GET: Employee/Delete/5
+        // GET: Fuel/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Employee == null)
+            if (id == null || _context.Fuels == null)
             {
                 return NotFound();
             }
 
-            var Employee = await _context.Employee
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (Employee == null)
+            var brand = await _context.Fuels
+                .FirstOrDefaultAsync(m => m.id == id);
+            if (brand == null)
             {
                 return NotFound();
             }
 
-            return View(Employee);
+            return View(brand);
         }
 
-        // POST: Employee/Delete/5
+        // POST: Fuel/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Employee == null)
+            if (_context.Fuels == null)
             {
-                return Problem("Entity set 'RentCarContext.Employee'  is null.");
+                return Problem("Entity set 'RentCarContext.Fuel'  is null.");
             }
-            var Employee = await _context.Employee.FindAsync(id);
-            if (Employee != null)
+            var brand = await _context.Fuels.FindAsync(id);
+            if (brand != null)
             {
-                _context.Employee.Remove(Employee);
+                _context.Fuels.Remove(brand);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EmployeeExists(int id)
+        private bool BrandExists(int id)
         {
-          return (_context.Employee?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Fuels?.Any(e => e.id == id)).GetValueOrDefault();
         }
     }
 }

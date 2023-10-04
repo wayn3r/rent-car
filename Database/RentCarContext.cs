@@ -11,6 +11,13 @@ namespace RentCar.Database
         public DbSet<CarType> carTypes { get; set; }
 
         public DbSet<Model> models { get; set; }
+        public DbSet<Cars> Cars { get; set; }
+
+        public DbSet<Clients> Clients { get; set; }
+
+        public DbSet<Fuel> Fuels { get; set; }
+
+        public DbSet<Employee> Employees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,9 +27,7 @@ namespace RentCar.Database
             modelBuilder.Entity<CarType>().ToTable(nameof(CarType));
         }
 
-        public DbSet<RentCar.Database.Entities.Cars>? Cars { get; set; }
-
-        public DbSet<RentCar.Database.Entities.Clients>? Clients { get; set; }
+       
 
     }
 }

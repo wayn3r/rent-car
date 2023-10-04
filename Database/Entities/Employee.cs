@@ -14,13 +14,13 @@ namespace RentCar.Database.Entities
         public string Cedula { get; set; }
 
         [Required(ErrorMessage = "El campo Tanda es obligatorio.")]
-        public string NoTarjetaCR { get; set; }
+        public string Tanda { get; set; }
 
         [Required(ErrorMessage = "El campo porcentaje de comision es obligatorio.")]
-        public decimal LimiteCredito { get; set; }
+        public decimal Porcentajecomision { get; set; }
 
-        [Required(ErrorMessage = "El campo Fecha de Ingreso es obligatorio.")]
-        public string TipoPersona { get; set; }
+        [Required(ErrorMessage = "El campo Tipo de Persona es obligatorio.")]
+        public string Fechaingreso { get; set; }
 
         [Required(ErrorMessage = "El campo Estado es obligatorio.")]
         public string Estado { get; set; }
