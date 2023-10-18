@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using RentCar.Database.Entities;
 
 namespace RentCar.Controllers
 {
+    [Authorize]
     public class BrandsController : Controller
     {
         private readonly RentCarContext _context;
@@ -22,20 +24,20 @@ namespace RentCar.Controllers
         // GET: Brands
         public async Task<IActionResult> Index()
         {
-              return _context.brands != null ? 
-                          View(await _context.brands.ToListAsync()) :
+              return _context.Brands != null ? 
+                          View(await _context.Brands.ToListAsync()) :
                           Problem("Entity set 'RentCarContext.brands'  is null.");
         }
 
         // GET: Brands/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.brands == null)
+            if (id == null || _context.Brands == null)
             {
                 return NotFound();
             }
 
-            var brand = await _context.brands
+            var brand = await _context.Brands
                 .FirstOrDefaultAsync(m => m.id == id);
             if (brand == null)
             {
@@ -70,12 +72,12 @@ namespace RentCar.Controllers
         // GET: Brands/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.brands == null)
+            if (id == null || _context.Brands == null)
             {
                 return NotFound();
             }
 
-            var brand = await _context.brands.FindAsync(id);
+            var brand = await _context.Brands.FindAsync(id);
             if (brand == null)
             {
                 return NotFound();
@@ -121,12 +123,12 @@ namespace RentCar.Controllers
         // GET: Brands/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.brands == null)
+            if (id == null || _context.Brands == null)
             {
                 return NotFound();
             }
 
-            var brand = await _context.brands
+            var brand = await _context.Brands
                 .FirstOrDefaultAsync(m => m.id == id);
             if (brand == null)
             {
@@ -141,14 +143,14 @@ namespace RentCar.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.brands == null)
+            if (_context.Brands == null)
             {
                 return Problem("Entity set 'RentCarContext.brands'  is null.");
             }
-            var brand = await _context.brands.FindAsync(id);
+            var brand = await _context.Brands.FindAsync(id);
             if (brand != null)
             {
-                _context.brands.Remove(brand);
+                _context.Brands.Remove(brand);
             }
             
             await _context.SaveChangesAsync();
@@ -157,7 +159,7 @@ namespace RentCar.Controllers
 
         private bool BrandExists(int id)
         {
-          return (_context.brands?.Any(e => e.id == id)).GetValueOrDefault();
+          return (_context.Brands?.Any(e => e.id == id)).GetValueOrDefault();
         }
     }
 }

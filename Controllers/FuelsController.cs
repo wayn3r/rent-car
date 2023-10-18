@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using RentCar.Database.Entities;
 
 namespace RentCar.Controllers
 {
+    [Authorize]
     public class FuelsController : Controller
     {
         private readonly RentCarContext _context;
@@ -19,15 +21,15 @@ namespace RentCar.Controllers
             _context = context;
         }
 
-        // GET: Fuel
+        // GET: Fuels
         public async Task<IActionResult> Index()
         {
-              return _context.Fuels != null ? 
-                          View(await _context.Fuels.ToListAsync()) :
-                          Problem("Entity set 'RentCarContext.Fuel'  is null.");
+            return _context.Fuels != null ?
+                        View(await _context.Fuels.ToListAsync()) :
+                        Problem("Entity set 'RentCarContext.Fuels'  is null.");
         }
 
-        // GET: Fuel/Details/5
+        // GET: Fuels/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Fuels == null)
@@ -35,39 +37,39 @@ namespace RentCar.Controllers
                 return NotFound();
             }
 
-            var brand = await _context.Fuels
+            var fuel = await _context.Fuels
                 .FirstOrDefaultAsync(m => m.id == id);
-            if (brand == null)
+            if (fuel == null)
             {
                 return NotFound();
             }
 
-            return View(brand);
+            return View(fuel);
         }
 
-        // GET: Fuel/Create
+        // GET: Fuels/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Fuel/Create
+        // POST: Fuels/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,description,status")] Brand brand)
+        public async Task<IActionResult> Create([Bind("id,description,status")] Fuel fuel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(brand);
+                _context.Add(fuel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(brand);
+            return View(fuel);
         }
 
-        // GET: Fuel/Edit/5
+        // GET: Fuels/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Fuels == null)
@@ -75,22 +77,22 @@ namespace RentCar.Controllers
                 return NotFound();
             }
 
-            var brand = await _context.Fuels.FindAsync(id);
-            if (brand == null)
+            var fuel = await _context.Fuels.FindAsync(id);
+            if (fuel == null)
             {
                 return NotFound();
             }
-            return View(brand);
+            return View(fuel);
         }
 
-        // POST: Fuel/Edit/5
+        // POST: Fuels/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,description,status")] Brand brand)
+        public async Task<IActionResult> Edit(int id, [Bind("id,description,status")] Fuel fuel)
         {
-            if (id != brand.id)
+            if (id != fuel.id)
             {
                 return NotFound();
             }
@@ -99,12 +101,12 @@ namespace RentCar.Controllers
             {
                 try
                 {
-                    _context.Update(brand);
+                    _context.Update(fuel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BrandExists(brand.id))
+                    if (!FuelExists(fuel.id))
                     {
                         return NotFound();
                     }
@@ -115,10 +117,10 @@ namespace RentCar.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(brand);
+            return View(fuel);
         }
 
-        // GET: Fuel/Delete/5
+        // GET: Fuels/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Fuels == null)
@@ -126,38 +128,38 @@ namespace RentCar.Controllers
                 return NotFound();
             }
 
-            var brand = await _context.Fuels
+            var fuel = await _context.Fuels
                 .FirstOrDefaultAsync(m => m.id == id);
-            if (brand == null)
+            if (fuel == null)
             {
                 return NotFound();
             }
 
-            return View(brand);
+            return View(fuel);
         }
 
-        // POST: Fuel/Delete/5
+        // POST: Fuels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Fuels == null)
             {
-                return Problem("Entity set 'RentCarContext.Fuel'  is null.");
+                return Problem("Entity set 'RentCarContext.Fuels'  is null.");
             }
-            var brand = await _context.Fuels.FindAsync(id);
-            if (brand != null)
+            var fuel = await _context.Fuels.FindAsync(id);
+            if (fuel != null)
             {
-                _context.Fuels.Remove(brand);
+                _context.Fuels.Remove(fuel);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool BrandExists(int id)
+        private bool FuelExists(int id)
         {
-          return (_context.Fuels?.Any(e => e.id == id)).GetValueOrDefault();
+            return (_context.Fuels?.Any(e => e.id == id)).GetValueOrDefault();
         }
     }
 }

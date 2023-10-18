@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using RentCar.Database.Entities;
 
 namespace RentCar.Controllers
 {
+    [Authorize]
     public class ModelsController : Controller
     {
         private readonly RentCarContext _context;
@@ -48,7 +50,7 @@ namespace RentCar.Controllers
         // GET: Models/Create
         public IActionResult Create()
         {
-            ViewData["brandId"] = new SelectList(_context.brands, "id", "description");
+            ViewData["brandId"] = new SelectList(_context.Brands, "id", "description");
             return View();
         }
 
@@ -65,7 +67,7 @@ namespace RentCar.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["brandId"] = new SelectList(_context.brands, "id", "description", model.brandId);
+            ViewData["brandId"] = new SelectList(_context.Brands, "id", "description", model.brandId);
             return View(model);
         }
 
@@ -82,7 +84,7 @@ namespace RentCar.Controllers
             {
                 return NotFound();
             }
-            ViewData["brandId"] = new SelectList(_context.brands, "id", "description", model.brandId);
+            ViewData["brandId"] = new SelectList(_context.Brands, "id", "description", model.brandId);
             return View(model);
         }
 
@@ -118,7 +120,7 @@ namespace RentCar.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["brandId"] = new SelectList(_context.brands, "id", "description", model.brandId);
+            ViewData["brandId"] = new SelectList(_context.Brands, "id", "description", model.brandId);
             return View(model);
         }
 
