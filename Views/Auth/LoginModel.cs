@@ -6,6 +6,7 @@ namespace RentCar.Views.Auth
     public class LoginViewModel
     {
         [Required(ErrorMessage = "El correo es obligatorio.")]
+        [EmailAddress(ErrorMessage = "El correo es invalido.")]
         [Display(Name = "Correo")]
         public string Email { get; set; }
 

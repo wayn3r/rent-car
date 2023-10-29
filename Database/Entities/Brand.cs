@@ -11,12 +11,12 @@ namespace RentCar.Database.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
 
-        [Required]
-        [StringLength(50)]
+        [Required(ErrorMessage = "La descripcion es requerida")]
+        [StringLength(50, ErrorMessage = "La descripcion debe ser menor a 50 caracteres")]
         [Display(Name = "Descripcion")]
         public string description { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "El estado es requerido")]
         [Display(Name = "Estado")]
         public Status status { get; set; }
 

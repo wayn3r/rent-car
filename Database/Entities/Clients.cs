@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RentCar.Helpers;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace RentCar.Database.Entities
@@ -11,6 +12,7 @@ namespace RentCar.Database.Entities
         public string Nombre { get; set; }
 
         [Required(ErrorMessage = "El campo Cédula es obligatorio.")]
+        [CedulaValida(ErrorMessage = "El campo Cédula es invalido.")]
         public string Cedula { get; set; }
 
         [Required(ErrorMessage = "El campo No. Tarjeta CR es obligatorio.")]

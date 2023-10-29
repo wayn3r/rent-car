@@ -30,12 +30,16 @@ namespace RentCar.Controllers
             if (!ModelState.IsValid) return View(model);
             
             var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null) return View(model);
+            if (user == null)
+            {
+                ModelState.AddModelError(string.Empty, "El correo o la contraseña son incorrectas.");
+                return View(model);
+            }
 
             var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
             if (!result.Succeeded)
             {
-                ModelState.AddModelError(string.Empty, "Inicio de sesión inválido");
+                ModelState.AddModelError(string.Empty, "El correo o la contraseña son incorrectas.");
                 return View(model);
             }
                
@@ -47,8 +51,7 @@ namespace RentCar.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync();
-
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Auth");
         }
     }
