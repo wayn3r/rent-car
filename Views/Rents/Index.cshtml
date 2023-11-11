@@ -1,0 +1,118 @@
+﻿@model IEnumerable<RentCar.Database.Entities.Rent>
+
+@{
+    ViewData["Title"] = "Rentas";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Rentas</h1>
+
+<p>
+    <a asp-action="Create">Crear nueva renta</a>
+</p>
+
+    <div class="row my-4">
+            <div class="col-md-6">
+                <h2 class="fs-5">Filtro de Rentas</h2>
+                <form method="get">
+                    <div class="form-group">
+                        <label for="cliente">Cliente:</label>
+                        <input type="text" class="form-control" id="cliente" name="cliente" placeholder="Nombre del Cliente" value="@ViewBag.cliente">
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha">Renta desde:</label>
+                <input type="date" class="form-control" id="fecha" name="fecha" value="@ViewBag.fecha">
+                    </div>
+                    <div class="form-group">
+                        <label for="vehiculo">Vehículo:</label>
+                <input type="text" class="form-control" id="vehiculo" name="vehiculo" placeholder="Nombre del Vehículo" value="@ViewBag.vehiculo">
+                    </div>
+                    <div class="form-group pt-3">
+                        <button type="submit" class="btn btn-primary">Buscar Rentas</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NoRenta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.empleado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.vehiculo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaRenta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaDevolución)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MontoDia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CantidadDias)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comentario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model.Count() == 0)
+        {
+            <tr><td colspan="11" class="text-muted text-center">No se encontro ninguna renta.</td></tr>
+        }
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoRenta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.empleado.Cedula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.vehiculo.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cliente.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaRenta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaDevolución)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MontoDia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantidadDias)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comentario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

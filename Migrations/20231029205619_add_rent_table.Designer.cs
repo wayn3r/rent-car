@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentCar.Database;
 
@@ -11,9 +12,11 @@ using RentCar.Database;
 namespace RentCar.Migrations
 {
     [DbContext(typeof(RentCarContext))]
-    partial class RentCarContextModelSnapshot : ModelSnapshot
+    [Migration("20231029205619_add_rent_table")]
+    partial class add_rent_table
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,14 +55,14 @@ namespace RentCar.Migrations
                         new
                         {
                             Id = "1",
-                            ConcurrencyStamp = "413d0361-1a89-4f63-9acd-1433bf1114a9",
+                            ConcurrencyStamp = "17025220-1371-46fc-a0c2-97ee08493af1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "2",
-                            ConcurrencyStamp = "3eaee4a4-713d-44b9-a196-e075ca0808b7",
+                            ConcurrencyStamp = "9bb7bdb3-954a-4edc-973b-bdd1593b3799",
                             Name = "Usuario",
                             NormalizedName = "USUARIO"
                         });

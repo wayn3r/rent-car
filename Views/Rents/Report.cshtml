@@ -1,0 +1,147 @@
+﻿@model IEnumerable<RentCar.Database.Entities.Rent>
+
+@{
+    ViewData["Title"] = "Reporte";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/rent-report.css" asp-append-version="true" />
+</head>
+<h1>Reporte de rentas</h1>
+
+<div class="row my-4">
+    <div class="col-md-6">
+        <h2 class="fs-5">Rango de fechas</h2>
+        <form method="get">
+           <div class="row">
+                <div class="form-group col-4">
+                    <label for="desde">Desde:</label>
+                    <input type="date" class="form-control" id="desde" name="desde" value="@ViewBag.desde">
+                </div>
+                <div class="form-group col-4">
+                    <label for="hasta">Hasta:</label>
+                    <input type="date" class="form-control" id="hasta" name="hasta" value="@ViewBag.hasta">
+                </div>
+                
+           </div>
+
+
+            <div class="form-group pt-3">
+                <button type="submit" class="btn btn-primary">Buscar rentas</button>
+                <button type="button" class="btn btn-secondary" onclick="javascript:window.print()">Imprimir reporte</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<section class="reporte">
+
+    <header class="reporte-header">
+        <h1>RentCar</h1>
+        <h2>Reporte de rentas</h2>
+        <div class="reporte-range">
+
+            @if (ViewBag.desde != null && ViewBag.desde != "")
+            {
+                <span>
+
+                    <strong>Desde:</strong> <span>@ViewBag.desde</span>
+                </span>
+            }
+            @if (ViewBag.hasta != null && ViewBag.desde != "")
+            {
+                <span>
+
+                    <strong>Hasta:</strong> <span>@ViewBag.hasta</span>
+                </span>
+            }
+        </div>
+    </header>
+   
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NoRenta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.empleado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.vehiculo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaRenta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaDevolución)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MontoDia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CantidadDias)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comentario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NoRenta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.empleado.Nombre) <br/>
+                        <span class="text-muted">
+
+                        @Html.DisplayFor(modelItem => item.empleado.Cedula)
+                        </span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.vehiculo.Descripcion)
+            </td>
+            <td>
+
+                        @Html.DisplayFor(modelItem => item.cliente.Nombre) <br />
+                <span class="text-muted">
+                            @Html.DisplayFor(modelItem => item.cliente.Cedula)
+                </span>
+                        
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaRenta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaDevolución)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MontoDia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantidadDias)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comentario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>
+</section>
