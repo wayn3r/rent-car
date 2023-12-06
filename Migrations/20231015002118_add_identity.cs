@@ -52,104 +52,7 @@ namespace RentCar.Migrations
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Brand",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    description = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    status = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Brand", x => x.id);
-                });
 
-            migrationBuilder.CreateTable(
-                name: "Cars",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NoChasis = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NoMotor = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NoPlaca = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TipoVehiculoId = table.Column<int>(type: "int", nullable: false),
-                    MarcaId = table.Column<int>(type: "int", nullable: false),
-                    ModeloId = table.Column<int>(type: "int", nullable: false),
-                    TipoCombustibleId = table.Column<int>(type: "int", nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Cars", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CarType",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    status = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CarType", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Clients",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cedula = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NoTarjetaCR = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LimiteCredito = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TipoPersona = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Clients", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Employees",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Cedula = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Tanda = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Porcentajecomision = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Fechaingreso = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Estado = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Employees", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Fuels",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    status = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Fuels", x => x.id);
-                });
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
@@ -257,26 +160,7 @@ namespace RentCar.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Model",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    status = table.Column<int>(type: "int", nullable: false),
-                    brandId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Model", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_Model_Brand_brandId",
-                        column: x => x.brandId,
-                        principalTable: "Brand",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
@@ -326,10 +210,7 @@ namespace RentCar.Migrations
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Model_brandId",
-                table: "Model",
-                column: "brandId");
+           
         }
 
         /// <inheritdoc />
@@ -350,32 +231,13 @@ namespace RentCar.Migrations
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
 
-            migrationBuilder.DropTable(
-                name: "Cars");
-
-            migrationBuilder.DropTable(
-                name: "CarType");
-
-            migrationBuilder.DropTable(
-                name: "Clients");
-
-            migrationBuilder.DropTable(
-                name: "Employees");
-
-            migrationBuilder.DropTable(
-                name: "Fuels");
-
-            migrationBuilder.DropTable(
-                name: "Model");
-
+           
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
-            migrationBuilder.DropTable(
-                name: "Brand");
         }
     }
 }
