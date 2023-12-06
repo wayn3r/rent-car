@@ -25,6 +25,8 @@ namespace RentCar.Database
 
         public DbSet<Rent> Rents { get; set; }
 
+        public DbSet<Inspections> Inspections { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -42,7 +44,7 @@ namespace RentCar.Database
           
         }
 
-        public DbSet<RentCar.Database.Entities.Inspections>? Inspections { get; set; }
+        
        
 
     }
