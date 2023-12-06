@@ -42,6 +42,7 @@ namespace RentCar.Database
           
         }
 
+        public DbSet<RentCar.Database.Entities.Inspections>? Inspections { get; set; }
        
 
     }
